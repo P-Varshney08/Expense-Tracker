@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import Signin from './pages/Signin.jsx';
+import Signup from './pages/Signup.jsx';
+import { ToastContainer } from 'react-toastify';
+import Sidebar from './components/sidebar/Sidebar.jsx';
+import Navbar from './components/navbar/Navbar.jsx';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div className="flex overflow-auto justify-between bg-[#e6e6e6] p-4 space-x-5">
+        <Sidebar />
+        <div className='w-4/5'>
+          <Navbar />
+          <div className='mt-4'>
+            <ToastContainer/>
+              <Routes>
+                <Route path='/' element={<Home/>} ></Route>
+                <Route path='/signin' element={<Signin/>} ></Route>
+                <Route path='/signup' element={<Signup/>} ></Route>
+                {/* <Route path='/blog' element={<Blog/>} ></Route>
+                <Route path='/know' element={<KnowYourDosha/>} ></Route>
+                <Route path='/relatedFormulation' element={<RelatedFormulations/>} ></Route>
+                <Route path='/formulationDetails' element={<FormulationDetails/>} ></Route>
+
+                <Route element={<ProtectedRoute/>}>
+                  <Route path='/map' element={<Home/>} ></Route>
+                  <Route path='/history' element={<History/>} ></Route>
+                  <Route path='/newSession' element={<NewSession/>} ></Route>
+                  <Route path='/savedFormulations' element={<SavedFormulations/>} ></Route>
+                </Route> */}
+              </Routes>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </BrowserRouter>
   )
 }
 
