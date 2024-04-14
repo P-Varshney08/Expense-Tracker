@@ -4,13 +4,13 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import { setUserDetails } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from '../redux/user/userSlice';
 
 const Signin = () => {
     const [formData, setFormData] = useState({email: "", password: ""});
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -19,54 +19,35 @@ const Signin = () => {
     const handleSubmit = async(e) =>{
         e.preventDefault();
         try {
-            // const res = await axios.post('http://localhost:8080/api/user/signin', formData);
-            const gqlRes = await axios.post('http://localhost:8000/graphql', {
-              query: `
-                mutation SignIn($input: signinInput) {
-                    signin(input: $input) {
-                        userId
-                        email
-                        userJwtToken {
-                            token
-                        }
-                    }
-                }
-            `,
-            variables: {
-                input: {
-                  email: formData.email,
-                  password: formData.password
-                }
-            }
-            })
-            console.log('res:', gqlRes);
-            // console.log(gqlRes.data.data.signin);
-            // console.log(`status is: ${gqlRes.status}`)
-            if(gqlRes.status===200){
-            //   dispatch(setUserDetails(res.data.user));
-            //   // console.log(res.data.user.username);
-            //   setTimeout(() => {
-            //     dispatch(setUserDetails(null));
-            //     localStorage.removeItem('root');
-              //   toast.info('You have been automatically logged out due to inactivity.', {
-              //     autoClose: 4000,
-              // });
-            // }, 600000);
+          const res = await axios.post('http://localhost:8080/api/user/signin', formData);
+            console.log('res:', res);
+            if(res.status===200){
+              console.log("yehi h",res.data.user)
+              console.log("sex",res.data)
+              dispatch(setUserDetails(res.data));
+              console.log(res.data.user.username);
+              setTimeout(() => {
+                dispatch(setUserDetails(null));
+                localStorage.removeItem('root');
+                toast.info('You have been automatically logged out due to inactivity.', {
+                  autoClose: 4000,
+              });
+            }, 24*60*60*1000);
             navigate('/');
             }
-            // else{
-            //   toast.error('Wrong credentials', {
-            //     autoClose: 4000,
-            //     style: {
-            //     //   backgroundImage: {bgImage},
-            //         backgroundColor: "",
-            //     },
-            //     progressBarStyle: {
-            //       background: purple
-            //     },
-            //     // theme: 'dark'
-            //   });
-            // }
+            else{
+              toast.error('Wrong credentials', {
+                autoClose: 4000,
+                style: {
+                //   backgroundImage: {bgImage},
+                    backgroundColor: "",
+                },
+                progressBarStyle: {
+                  background: purple
+                },
+                // theme: 'dark'
+              });
+            }
 
         } catch (error) {
             console.log('Error Signing In', error.message);

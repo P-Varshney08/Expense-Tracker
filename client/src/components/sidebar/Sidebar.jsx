@@ -23,16 +23,16 @@ export default function Sidebar() {
                             </li>
                             <li className="rounded-lg mb-2 text-gray-700">
                                 <Link
-                                    to="/history"
+                                    to="/expense-tracker"
                                     className="flex items-center gap-4 text-md text-gray-700 font-bold px-4 py-3 rounded-lg transition duration-300 hover:bg-gradient-to-br hover:from-purple-300 hover:via-purple-400 hover:to-purple-500 hover:text-black hover:shadow-lg">
-                                    History
+                                    Expense Tracker
                                 </Link>
                             </li>
                             <li className="rounded-lg mb-2 text-gray-700">
                                 <Link
-                                    to="/expenses"
+                                    to="/notifications"
                                     className="flex items-center gap-4 text-md text-gray-700 font-bold px-4 py-3 rounded-lg transition duration-300 hover:bg-gradient-to-br hover:from-purple-300 hover:via-purple-400 hover:to-purple-500 hover:text-black hover:shadow-lg">
-                                    Expenses
+                                    Notifications
                                 </Link>
                             </li>
                             <li className="rounded-lg mb-2 text-gray-700">
@@ -44,9 +44,9 @@ export default function Sidebar() {
                             </li>
                             <li className="rounded-lg mb-2">
                                 <Link
-                                    to="/setting"
+                                    to="/profile"
                                     className="flex items-center gap-4 text-md text-gray-700 font-bold px-4 py-3 rounded-lg transition duration-300 hover:bg-gradient-to-br hover:from-purple-300 hover:via-purple-400 hover:to-purple-500 hover:text-black hover:shadow-lg">
-                                    Setting
+                                    Profile
                                 </Link>
                             </li>
                         </ul>

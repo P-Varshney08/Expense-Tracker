@@ -1,40 +1,67 @@
-const axios = require('axios');
 
-// Controller function for handling sign-in
-const signin = async (req, res) => {
-    console.log('controller tk  aa gya')
+const User = require('../models/User.js');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+
+const signin = async(req, res) => {
+    console.log("hb")
+    const {email, password} = req.body;
     try {
-        const { email, password } = req.body;
-
-        // Make a request to your GraphQL server to handle sign-in
-        const gqlRes = await axios.post('http://localhost:8000/graphql', {
-            query: `
-                mutation SignIn($input: signinInput) {
-                    signin(input: $input) {
-                        userId
-                        email
-                        userJwtToken {
-                            token
-                        }
-                    }
-                }
-            `,
-            variables: {
-                input: {
-                    email,
-                    password
-                }
-            }
-        });
-
-        // If the sign-in was successful, send the response from GraphQL server back to the client
-        res.json(gqlRes.data);
+        const validUser = await User.findOne({email: email}).populate("Expense_details").populate("");
+        console.log(validUser);
+        if(!validUser){
+            return res.status(404).json({message: 'User not found'});
+        }
+        const validPassword = await bcryptjs.compare(password, validUser.password);
+        if(!validPassword){
+            return res.status(401).json({message: 'Invalid Credentials'});
+        }
+        const {_id, password: hashedPassword, ...userInfo} = validUser._doc;
+        const token = jwt.sign({id: _id}, process.env.JWT_SECRET_KEY);
+        console.log('Generated token', token); 
+        console.log('userInfo : ', userInfo);
+        return res.cookie('jwt', token, {httpOnly: true}).status(200).json({token: token, user: validUser._doc});
 
     } catch (error) {
-        console.error('Error during sign-in:', error.message);
-        // If there's an error, send an error response to the client
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log('Error Signing In', error.message);
+        return res.status(500).json({message: "Internal Server Error"});
     }
-};
+}
+const signup = async(req, res) => {
+    const {username, email, password} = req.body;
+    const hashedPassword = await bcryptjs.hashSync(password, 10);
+    const newUser = new User({
+        username, email, password: hashedPassword
+    });
+    try {
+        await newUser.save();
+        console.log('New User created');
+        res.status(201).json(newUser);
+        
+    } catch (error) {
+        console.log('Error Signing Up', error.message);
+        if (!err.message.includes("E11000")) {     
+            return res.status(500).json({message: err})
+        } else {
+            return res.status(409).send("Error: Email already in use");
+        }
+    }
+}
+    const profile=async(req,res)=>{
+        const {id}=req.params;
+        try {
+            const user=await User.findById(id).populate("Expense_details");
+            if(!user){
+                return res.status(404).send({message:"user not found"});
+             }
+             return res.status(200).json(user);
+        } catch (error) {
+            return res.status(500).json({message:"server error",error:error})
+            
+        }
+    }
 
-module.exports = { signin };
+
+
+module.exports = { signin, signup,profile };

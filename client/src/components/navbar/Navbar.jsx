@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setUserDetails } from '../../redux/user/userSlice';
 
 const Navbar = () => {
   const [query, setQuery] = useState('');
@@ -31,6 +33,14 @@ const Navbar = () => {
     console.log('Selected Suggestion: ', suggestion);
   };
 
+  const isAuthenticated = useSelector((state)=> state.user.userDetails);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    console.log('Logging out');
+    dispatch(setUserDetails(null));
+    localStorage.removeItem('root');
+  }
+
   return (
     <div className=''>
       <nav className="navbar bg-white shadow-md px-14 py-3 z-50 ">
@@ -46,33 +56,38 @@ const Navbar = () => {
               value={query}
               className="w-full px-4 py-2 rounded bg-gray-300 focus:outline-none focus:shadow-outline transition-all duration-400 hover:bg-gray-300"
             />
-            {suggestions.length > 0 && (
-              <ul className="border border-gray-300 bg-white absolute z-10 mt-1 w-[32rem]">
-                {query &&
-                  suggestions.map((term, index) => (
-                    <li
-                      key={index}
-                      className={`p-2 hover:bg-gray-200 cursor-pointer w-[32rem] ${
-                        selectedSuggestion === term ? 'bg-gray-300' : ''
-                      }`}
-                      onClick={() => handleSuggestionClick(term)}
-                    >
-                      {term}
-                    </li>
-                  ))}
-              </ul>
-            )}
+            
           </div>
 
-          <div className="flex items-center space-x-10">
-            <Link to="/support" className="text-black">
-              Support
-            </Link>
+          {isAuthenticated ? (
+            // If the user is authenticated, show the main options
+            <div className="flex items-center space-x-8">
+              <Link
+                to="/profile"
+                className="text-gray-800 hover:text-gray-600 transition-all duration-300"
+              >
+                <img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE=" alt="profile" height={30} width={30} />
+                {/* Profile */}
+              </Link>
 
-            <Link to="/signin" className="text-black">
-              Login
-            </Link>
-          </div>
+              <button
+                className="text-gray-800 hover:text-gray-600 transition-all duration-300"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-10">
+              <Link to="/support" className="text-black">
+                Support
+              </Link>
+
+              <Link to="/signin" className="text-black">
+                Login
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
     </div>
