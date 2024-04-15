@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 const Profile = () => {
   const user = useSelector((state) => state.user.userDetails);
   const username = user.user.username;
+  const [limitStock, setlimitStock] = useState(parseInt(user.user.limit_stock) || ''); // Corrected here
   const [limitFood, setLimitFood] = useState(user.user.limit_food || '');
   const [limitHousing, setLimitHousing] = useState(user.user.limit_Housing || '');
   const [limitEducation, setLimitEducation] = useState(user.user.limit_Education || '');
@@ -15,12 +16,13 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      if (!limitFood || !limitHousing || !limitEducation || !savingsLimit) {
+      if (!limitStock || !limitFood || !limitHousing || !limitEducation || !savingsLimit) {
         setSavingStatus('Please enter all limits.');
         return;
       }
 
       const response = await axios.post(`http://localhost:8080/api/user/fix_expense/${user.user._id}`, {
+        limit_stock: limitStock,
         limit_food: limitFood,
         limit_Housing: limitHousing,
         limit_Education: limitEducation,
@@ -58,7 +60,7 @@ const Profile = () => {
             />
             <h2 className="text-xl font-semibold">{username}</h2>
           </div>
-          {(limitFood === 0 || limitHousing === 0 || limitEducation === 0 || savingsLimit === 0) ? (
+          {(limitStock === 0 || limitFood === 0 || limitHousing === 0 || limitEducation === 0 || savingsLimit === 0 || isNaN(limitStock) || isNaN(limitFood) || isNaN(limitHousing) || isNaN(limitEducation) || isNaN(savingsLimit)) ? (
             <div className="text-center">
               <p>You have not set expense limits.</p>
               <button onClick={() => setEditMode(true)} className="bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-600 mt-4">
@@ -68,6 +70,10 @@ const Profile = () => {
           ) : (
             <>
               <div className="grid grid-cols-2 gap-4">
+                <div className="text-center">
+                  <p className="text-sm font-semibold text-gray-500">Stock Investing Limit</p>
+                  <p className="text-xl font-semibold">${limitStock}</p>
+                </div>
                 <div className="text-center">
                   <p className="text-sm font-semibold text-gray-500">Food Expenses Limit</p>
                   <p className="text-xl font-semibold">${limitFood}</p>
@@ -95,6 +101,18 @@ const Profile = () => {
           {editMode && (
             <div className="mt-8">
               <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="foodExpense" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Set Stock Investing Limit
+                  </label>
+                  <input
+                    type="number"
+                    id="stockLimit"
+                    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-purple-500"
+                    value={limitStock}
+                    onChange={(e) => setlimitStock(parseInt(e.target.value))}
+                  />
+                </div>
                 <div>
                   <label htmlFor="foodExpense" className="block text-sm font-semibold text-gray-700 mb-1">
                     Set Food Expenses Limit

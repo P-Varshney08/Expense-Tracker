@@ -16,58 +16,73 @@ const Signin = () => {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault();
-        try {
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
           const res = await axios.post('http://localhost:8080/api/user/signin', formData);
-            console.log('res:', res);
-            if(res.status===200){
-              console.log("yehi h",res.data.user)
-              console.log("sex",res.data)
+          console.log('res:', res);
+          if (res.status === 200) {
               dispatch(setUserDetails(res.data));
-              console.log(res.data.user.username);
-              setTimeout(() => {
-                dispatch(setUserDetails(null));
-                localStorage.removeItem('root');
-                toast.info('You have been automatically logged out due to inactivity.', {
+              toast.success('Logged in successfully!', {
+                  position: 'top-right',
                   autoClose: 4000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: false,
+                  draggable: true,
               });
-            }, 24*60*60*1000);
-            navigate('/');
-            }
-            else{
-              toast.error('Wrong credentials', {
-                autoClose: 4000,
-                style: {
-                //   backgroundImage: {bgImage},
-                    backgroundColor: "",
-                },
-                progressBarStyle: {
-                  background: purple
-                },
-                // theme: 'dark'
+              navigate('/');
+          } else if (res.status === 404) {
+              toast.error(res.data.message || 'User not found', { 
+                  autoClose: 4000,
+                  style: {
+                      backgroundColor: "",
+                  },
+                  progressBarStyle: {
+                      background: 'purple'
+                  },
               });
-            }
-
-        } catch (error) {
-            console.log('Error Signing In', error.message);
-            toast.warning('Wrong credentials', {
+          } else if (res.status === 401) {
+              toast.error('Invalid credentials', {
+                  autoClose: 4000,
+                  style: {
+                      backgroundColor: "",
+                  },
+                  progressBarStyle: {
+                      background: 'purple'
+                  },
+              });
+          } else {
+              toast.error('Something went wrong', {
+                  autoClose: 4000,
+                  style: {
+                      backgroundColor: "",
+                  },
+                  progressBarStyle: {
+                      background: 'purple'
+                  },
+              });
+          }
+      } catch (error) {
+          console.log('Error Signing In', error.message);
+          toast.warning('Wrong credentials', {
               autoClose: 4000,
-              progressStyle:{
-                backgroundColor: '#FFB700'
+              progressStyle: {
+                  backgroundColor: '#FFB700'
               },
               theme: 'dark'
-              
-            });
-        }
-    }
+          });
+      }
+  }
+  
+  
+   
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#e0dede]">
-        <div className="bg-white p-6 md:p-10 rounded-md shadow-md backdrop-blur-md bg-opacity-60 max-w-xl w-full flex-shrink-0">
+      <div className="p-4 flex items-center justify-center bg-[#e0dede]">
+        <div className="bg-white p-10 md:p-12 rounded-md shadow-md backdrop-blur-md bg-opacity-60 max-w-md w-full flex-shrink-0">
           <h2 className="text-4xl md:text-5xl font-semibold mb-6 text-purple-700 text-center">Sign In</h2>
           <div className="mb-4 md:mb-8">
             <img
-              // src={bgImage}
               src="https://img.freepik.com/free-vector/pos-terminal-security-website-template_107791-114.jpg?t=st=1712941188~exp=1712944788~hmac=88f4023ad2f57cb0789bdda2201ab4c8d8700723ec1c3f7b1c250341b2e518fc&w=1060"
               alt="Background"
               className="w-full h-24 md:h-32 object-cover mb-4 rounded-md"
@@ -84,7 +99,7 @@ const Signin = () => {
                 name="email"
                 placeholder='Enter your Email'
                 onChange={handleChange}
-                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:border-purple-500"
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-500"
               />
             </div>
             <div className="mb-4">
@@ -97,7 +112,7 @@ const Signin = () => {
                 name="password"
                 placeholder='Enter Password'
                 onChange={handleChange}
-                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:border-purple-500"
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-purple-500"
               />
             </div>
             <div className="flex items-center justify-between mb-4">
@@ -107,7 +122,7 @@ const Signin = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white p-3 md:p-4 rounded-md hover:bg-purple-700"
+              className="w-full bg-purple-600 text-white p-2 md:p-4 rounded-md hover:bg-purple-700"
             >
               Sign In
             </button>

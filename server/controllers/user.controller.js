@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 
 
 const signin = async(req, res) => {
-    console.log("hb")
     const {email, password} = req.body;
     try {
         const validUser = await User.findOne({email: email}).populate("Expense_details").populate("");
@@ -37,7 +36,7 @@ const signup = async(req, res) => {
     try {
         await newUser.save();
         console.log('New User created');
-        res.status(201).json(newUser);
+        res.status(200).json(newUser); 
         
     } catch (error) {
         console.log('Error Signing Up', error.message);

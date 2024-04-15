@@ -91,7 +91,8 @@ module.exports.User_management = async (req, res) => {
 module.exports.Set_Limit = async (req, res) => {
     const { id } = req.params;
     console.log(id);
-    const { limit_food, limit_Education, limit_Housing, savings_limit } = req.body;
+    const { limit_food, limit_Education, limit_Housing, savings_limit,limit_stock } = req.body;
+    console.log(req.body)
     try {
         const user = await User.findById(id);
         if (!user) {
@@ -109,7 +110,13 @@ module.exports.Set_Limit = async (req, res) => {
         if(savings_limit!==undefined){
             user.savings_limit = savings_limit;
         }
-        await user.save();
+        if(savings_limit!==undefined){
+            user.savings_limit = savings_limit;
+        }
+        if(limit_stock!==undefined){ 
+            user.money_for_stock=limit_stock;
+        }
+         await user.save();
         return res.status(200).json({ message: "Limits updated successfully", user });
 
     } catch (error) {
@@ -173,7 +180,7 @@ module.exports.MonthExpenSaving = async (req, res) => {
             }
         });
     
-       
+    
          return res.status(200).json({
             totalExpenses,
             totalExpenses_per_item,

@@ -44,6 +44,13 @@ export default function Sidebar() {
                             </li>
                             <li className="rounded-lg mb-2">
                                 <Link
+                                    to="/stock"
+                                    className="flex items-center gap-4 text-md text-gray-700 font-bold px-4 py-3 rounded-lg transition duration-300 hover:bg-gradient-to-br hover:from-purple-300 hover:via-purple-400 hover:to-purple-500 hover:text-black hover:shadow-lg">
+                                    Stock Investment
+                                </Link>
+                            </li>
+                            <li className="rounded-lg mb-2">
+                                <Link
                                     to="/profile"
                                     className="flex items-center gap-4 text-md text-gray-700 font-bold px-4 py-3 rounded-lg transition duration-300 hover:bg-gradient-to-br hover:from-purple-300 hover:via-purple-400 hover:to-purple-500 hover:text-black hover:shadow-lg">
                                     Profile

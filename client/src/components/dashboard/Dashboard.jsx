@@ -3,10 +3,10 @@ import Card from '../Card';
 import AddIncomeForm from '../AddIncome.jsx';
 import AddExpenseForm from '../AddExpense.jsx';
 import MyTable from '../MyTable.jsx';
-import PieChart from '../PieChar'; // Corrected typo: 'PieChart'
+import PieChart from '../PieChar';
 import Chart from '../Chart.jsx';
 import { useSelector } from 'react-redux';
-
+import { toast } from 'react-toastify';
 const FinanceTracker = () => {
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState(0);
@@ -47,6 +47,14 @@ const FinanceTracker = () => {
 
   useEffect(()=>{
     if(user.user.Expense_details.length > 0) {
+      toast.success('Transactions fetched!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
       const expenseTransactions = user.user.Expense_details.filter(t=>t.transaction_type === 'Expense');
       const expenseTags = expenseTransactions.map(t=>t.tag);
       const totalExpense = expenseTransactions.reduce((total, transaction) => total + parseFloat(transaction.Amount), 0);
@@ -113,9 +121,21 @@ const FinanceTracker = () => {
       {user.user.Expense_details.length > 0 && (
         <div className="justify-center p-8 bg-gray-100 mb-4">
           <div className='w-full flex justify-around'>
-            <div className='w-1/3 mx-2'>
-              <PieChart data={pieChartData} labels={pieChartLabels} />
-            </div>
+          {pieChartData.length > 0 ? (
+          <PieChart data={pieChartData} labels={pieChartLabels} />
+        ) : (
+          <div className="flex flex-col items-center">
+            <h2 className="text-xl font-semibold mb-4">No Expenses Made</h2>
+            <img 
+              src="https://financely-finance-tracker.netlify.app/static/media/transactions.004d9f02317991455e50b36d9dae2a26.svg" 
+              alt="No Data Available" 
+              className="w-100 h-80" 
+            />
+          </div>
+        )}
+            {/* <div className='w-1/3 mx-2'> */}
+              {/* <PieChart data={pieChartData} labels={pieChartLabels} /> */}
+            {/* </div> */}
             <div className='w-1/3 mx-2'>
               <Chart />
             </div>

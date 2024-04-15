@@ -1,5 +1,17 @@
 const mongoose=require("mongoose")
 
+const userStockSchema = new mongoose.Schema({
+  symbol: {
+      type: String,
+      required: true
+  },
+  quantity: {
+      type: Number,
+      required: true,
+      default: 0
+  }
+});
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -50,6 +62,16 @@ const userSchema = new mongoose.Schema(
      type:mongoose.Schema.ObjectId,
      ref:"Notification"
     }],
+    money_for_stock:{
+      type:Number,
+      default:0
+    },
+    ownedStocks:{
+      type: [userStockSchema],
+      default: []
+
+    },
+
 
   },
   { timestamps: true }
