@@ -7,6 +7,7 @@ import PieChart from '../PieChar';
 import Chart from '../Chart.jsx';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+
 const FinanceTracker = () => {
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState(0);
@@ -20,7 +21,7 @@ const FinanceTracker = () => {
   const user = useSelector((state)=>{
      return state.user.userDetails;
   })
-  // console.log(user)
+
   const addIncome = (amount) => {
     setIncome(prevIncome => prevIncome + parseFloat(amount));
   };
@@ -39,11 +40,10 @@ const FinanceTracker = () => {
       (incomeFormRef.current && !incomeFormRef.current.contains(event.target)) &&
       (expenseFormRef.current && !expenseFormRef.current.contains(event.target))
     ) {
-      setShowAddIncomeForm(true);
-      setShowAddExpenseForm(true);
+      setShowAddIncomeForm(false);
+      setShowAddExpenseForm(false);
     }
   };
-
 
   useEffect(()=>{
     if(user.user.Expense_details.length > 0) {
@@ -79,7 +79,6 @@ const FinanceTracker = () => {
     };
   }, []);
 
-  // Calculate current balance
   const currentBalance = income - expenses;
 
   return (

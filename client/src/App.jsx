@@ -14,6 +14,7 @@ import ProtectedRoute from './ProtectedRoutes.jsx';
 import { useSelector } from 'react-redux';
 import StockPage from './components/stock/StockPage.jsx';
 import BankDashboard from './components/bank/BankDashboard.jsx';
+import LoanApplicationPage from './components/bank/LoanApplicationPage.jsx';
 
 const App = () => {
   const user = useSelector((state)=>{
@@ -40,6 +41,7 @@ const App = () => {
                     <Route path='/expense-tracker' element={<ExpenseTracker />} />
                     <Route path='/bank-home' element={<BankDashboard />} />
                     <Route path='/stock' element={<StockPage />} />
+                    <Route path='/loan-application' element={<LoanApplicationPage />} />
                     <Route path='/signin' element={<Navigate to='/' />} />
                     <Route path='/signup' element={<Navigate to='/' />} />
                   </>

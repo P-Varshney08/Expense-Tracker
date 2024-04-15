@@ -7,6 +7,7 @@ dotenv.config();
 const userRoutes = require('./routes/user.route.js')
 const userExpense=require('./routes/expense_route.js')
 const stockRoutes=require('./routes/stock_routes.js')
+const bankRoutes=require('./routes/Bank_route.js')
 
 const app = express();
 app.use(express.json());
@@ -21,8 +22,7 @@ app.listen(PORT, (req, res)=>{
 app.use('/api/user', userRoutes);
 app.use('/api/user',userExpense);
 app.use('/api/stock',stockRoutes);
-
-
+app.use('/api/bank',bankRoutes);
 
 
 
