@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Notification = ({ message, positive, onDismiss }) => {
@@ -24,27 +24,52 @@ const Notification = ({ message, positive, onDismiss }) => {
 };
 
 const NotificationsPage = () => {
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: 'This is a positive notification.', positive: true },
-    { id: 2, message: 'This is a negative notification.', positive: false },
-    { id: 3, message: 'Another positive notification.', positive: true },
-  ]);
+  const location = useLocation();
 
+  // State variable for notifications array
+  const [notifications, setNotifications] = useState([]);
+
+  // Effect to add message from location state to notifications array
+  useEffect(() => {
+    const message = location.state?.message;
+    const positive = location.state?.positive;
+
+    if (message) {
+      const newNotification = {
+        id: Date.now(), // Use a timestamp as a unique ID for the new notification
+        message,
+        positive: positive !== undefined ? positive : true, // Default to true if not specified
+      };
+
+      // Add the new notification to the notifications array
+      setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+    }
+  }, [location]);
+
+  // Function to dismiss a notification
   const dismissNotification = (id) => {
-    setNotifications(notifications.filter(notification => notification.id !== id));
+    setNotifications((prevNotifications) => prevNotifications.filter(notification => notification.id !== id));
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-semibold mb-4">Notifications</h1>
-      {notifications.map(notification => (
-        <Notification
-          key={notification.id}
-          message={notification.message}
-          positive={notification.positive}
-          onDismiss={() => dismissNotification(notification.id)}
-        />
-      ))}
+    <div className="flex justify-center items-center min-h-[630px] bg-white">
+      <div className="w-full max-w-lg p-8">
+        <h1 className="text-2xl font-semibold mb-4 text-center">Notifications</h1>
+        {notifications.length === 0 ? (
+          <div className="flex justify-center items-center">
+            <img src="https://img.freepik.com/premium-vector/alert-concept-illustration_86047-335.jpg?w=826" alt="Empty notifications" className="w-84 h-84" />
+          </div>
+        ) : (
+          notifications.map(notification => (
+            <Notification
+              key={notification.id}
+              message={notification.message}
+              positive={notification.positive}
+              onDismiss={() => dismissNotification(notification.id)}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };

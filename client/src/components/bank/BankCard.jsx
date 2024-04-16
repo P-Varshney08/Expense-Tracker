@@ -19,7 +19,7 @@ const BankCard = ({ bank }) => {
     console.log('Proceeding with loan application for:', bank.name);
     console.log(`selecting banks details are: ${JSON.stringify(bank)}`);
     navigate('/loan-application',  { state: bank });
-    // const res = await axios.get(`http://localhost:8080/api/bank`)
+    // const res = await axios.get(http://localhost:8080/api/bank)
     // closeModal();
   };
 

@@ -86,14 +86,14 @@ const FinanceTracker = () => {
       {showAddIncomeForm && (
         <div ref={incomeFormRef} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="w-full max-w-md">
-            <AddIncomeForm addIncome={addIncome} />
+            <AddIncomeForm addIncome={addIncome} onClose={() => setShowAddIncomeForm(false)} />
           </div>
         </div>
       )}
       {showAddExpenseForm && (
         <div ref={expenseFormRef} className="fixed inset-0 flex justify-center bg-black bg-opacity-50 z-50">
           <div className="w-full max-w-md">
-            <AddExpenseForm addExpense={addExpense} />
+            <AddExpenseForm addExpense={addExpense} onClose={() => setShowAddExpenseForm(false)} />
           </div>
         </div>
       )}

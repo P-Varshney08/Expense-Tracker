@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import StockPage from './components/stock/StockPage.jsx';
 import BankDashboard from './components/bank/BankDashboard.jsx';
 import LoanApplicationPage from './components/bank/LoanApplicationPage.jsx';
+import BuyLoanButton from './components/BuyLoanButton'; // Import the BuyLoanButton component
 
 const App = () => {
   const user = useSelector((state)=>{
@@ -57,6 +58,7 @@ const App = () => {
           </div>
         </div>
       </div>
+      <BuyLoanButton /> {/* Include the BuyLoanButton component outside the Routes */}
     </BrowserRouter>
   )
 }

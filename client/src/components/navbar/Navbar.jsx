@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setUserDetails } from '../../redux/user/userSlice';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const [query, setQuery] = useState('');
@@ -39,6 +40,14 @@ const Navbar = () => {
     console.log('Logging out');
     dispatch(setUserDetails(null));
     localStorage.removeItem('root');
+    toast.success('Logged Out successfully!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+    });
   }
 
   return (

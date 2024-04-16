@@ -35,7 +35,6 @@ const StockLineGraph = ({ stock }) => {
     });
   };
 
-
   // Prepare data for the chart
   const chartData = {
     options: {
@@ -70,12 +69,12 @@ const StockLineGraph = ({ stock }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow-md">
+    <div className="bg-white p-6 rounded shadow-md">
       <h2 className="text-lg font-bold mb-4">{name}</h2>
       <Chart options={chartData.options} series={chartData.series} type="line" height={300} />
-      <div className="mt-4 flex items-center">
+      <div className="mt-6 flex items-center">
         <input 
-          className="border border-gray-300 rounded px-3 py-1 mr-2" 
+          className="border border-gray-300 rounded px-3 py-2 mr-4 focus:outline-none focus:border-purple-500" 
           type="number" 
           placeholder="Enter quantity"
           value={quantity}
@@ -83,7 +82,7 @@ const StockLineGraph = ({ stock }) => {
         />
         <button 
           onClick={handleBuyStock} 
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 ease-in-out"
+          className="px-6 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition duration-300 ease-in-out focus:outline-none"
         >
           Buy
         </button>

@@ -3,6 +3,7 @@ import PieChart from './PieChar';
 import ExpenseIncomeGraph from './ExpenseIncomeGraph';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const FinancePage = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
@@ -93,8 +94,15 @@ const FinancePage = () => {
         `
       })
       const data = res.data.data.processMonthlyReport;
-      console.log('b',data);
-
+      // console.log('b',data);
+      toast.success('Data fetched!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
       const expenses = [];
       const income = [];
       if (data && data.filteredTransactions) {
@@ -106,9 +114,8 @@ const FinancePage = () => {
           }
         });
       }
-      console.log(expenses);
-      console.log(income);
-
+      // console.log(expenses);
+      // console.log(income);
       // const { expenses, income } = monthData[selectedMonth];
       setExpenseData(expenses);
       setIncomeData(income);
@@ -140,7 +147,14 @@ const FinancePage = () => {
       February: '02',
       March: '03',
       April: '04',
-      // Add more months as needed
+      May: '05',
+      June: '06',
+      July: '07',
+      August: '08',
+      September: '09',
+      October: '10',
+      November: '11',
+      December: '12'
     };
     return months[selectedMonth];
   };

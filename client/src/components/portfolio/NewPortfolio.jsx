@@ -2,10 +2,10 @@ import React from 'react';
 
 function Portfolio({ portfolio, totalInvestment, totalCurrentValue, earningsOrLosses }) {
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-4">
             {/* Main Portfolio Container */}
-            <div className="max-w-3/4 bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 shadow-xl rounded-2xl p-8 mb-10 mx-auto">
-                <h1 className="text-4xl font-bold text-white mb-6">My Portfolio</h1>
+            <div className="max-w-3/4 bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 shadow-xl rounded-2xl p-6 mb-10 mx-auto">
+                <h1 className="text-2xl font-bold text-white mb-6">My Portfolio</h1>
 
                 {/* Holding Cards */}
                 {portfolio.map((holding, index) => (
@@ -39,8 +39,8 @@ function Portfolio({ portfolio, totalInvestment, totalCurrentValue, earningsOrLo
                 ))}
 
                 {/* Portfolio Summary */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg transform transition duration-300 ease-out hover:shadow-2xl hover:scale-105 hover:-translate-y-2 hover:bg-gradient-to-br from-gray-50 via-white to-gray-100">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-3">Portfolio Summary</h2>
+                <div className="bg-white rounded-2xl p-4 shadow-lg transform transition duration-200 ease-out hover:shadow-2xl hover:scale-5 hover:-translate-y-2 hover:bg-gradient-to-br from-gray-50 via-white to-gray-100">
+                    <h2 className="text-xl font-bold text-gray-700 mb-3">Portfolio Summary</h2>
                     <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-600">Total Current Value:</span>
                         <span className="text-gray-800">${totalCurrentValue.toFixed(2)}</span>
