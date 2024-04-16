@@ -132,9 +132,6 @@ const FinanceTracker = () => {
             />
           </div>
         )}
-            {/* <div className='w-1/3 mx-2'> */}
-              {/* <PieChart data={pieChartData} labels={pieChartLabels} /> */}
-            {/* </div> */}
             <div className='w-1/3 mx-2'>
               <Chart />
             </div>

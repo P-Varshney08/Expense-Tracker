@@ -91,6 +91,15 @@ const AddIncomeForm = ({ onClose }) => {
     <div className="w-full max-w-md mx-auto p-4 relative">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" ref={formRef}>
         <h2 className="text-xl font-semibold mb-4">Add Income</h2>
+        <button
+          type="button"
+          className="absolute top-5 right-5 mr-4 mt-4 text-gray-500 hover:text-gray-700"
+          onClick={onClose}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
             Name <span className="text-red-500">*</span>

@@ -58,7 +58,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <BuyLoanButton /> {/* Include the BuyLoanButton component outside the Routes */}
+      <BuyLoanButton /> 
     </BrowserRouter>
   )
 }
