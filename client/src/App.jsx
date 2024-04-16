@@ -10,12 +10,12 @@ import NotificationsPage from './components/notifications/Notification.jsx';
 import Profile from './components/profile/Profile.jsx';
 import ExpenseTracker from './components/expenseTracker/ExpenseTracker.jsx';
 import SavingsHistory from './components/SavingsHistory.jsx';
-import ProtectedRoute from './ProtectedRoutes.jsx';
 import { useSelector } from 'react-redux';
 import StockPage from './components/stock/StockPage.jsx';
 import BankDashboard from './components/bank/BankDashboard.jsx';
 import LoanApplicationPage from './components/bank/LoanApplicationPage.jsx';
 import BuyLoanButton from './components/BuyLoanButton'; // Import the BuyLoanButton component
+import UserProfile from './components/profile/UserProfile.jsx';
 
 const App = () => {
   const user = useSelector((state)=>{
@@ -37,7 +37,8 @@ const App = () => {
                   <>
                     <Route path='/' element={<Home />} />
                     <Route path='/notifications' element={<NotificationsPage />} />
-                    <Route path='/profile' element={<Profile />} />
+                    <Route path='/profile' element={<UserProfile />} />
+                    <Route path='/edit-limit' element={<Profile />} />
                     <Route path='/savings' element={<SavingsHistory />} />
                     <Route path='/expense-tracker' element={<ExpenseTracker />} />
                     <Route path='/bank-home' element={<BankDashboard />} />

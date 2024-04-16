@@ -50,7 +50,7 @@ const signup = async(req, res) => {
     const profile=async(req,res)=>{
         const {id}=req.params;
         try {
-            const user=await User.findById(id).populate("Expense_details");
+            const user=await User.findById(id).populate("Expense_details")
             if(!user){
                 return res.status(404).send({message:"user not found"});
              }
@@ -61,6 +61,22 @@ const signup = async(req, res) => {
         }
     }
 
+    const userById=async(req,res,next)=> {
+        try {
+            const { id } = req.params 
+            const user = await User.findById(id).populate("Expense_details").populate("loans");
+            if(!user) return res.status(404).send({message:'User  Not Found'})
+            return res.status(200).json({user})
+            
+            
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({message:error});
+            
+        }
+    }
+   
 
 
-module.exports = { signin, signup,profile };
+
+module.exports = { signin, signup,profile,userById };

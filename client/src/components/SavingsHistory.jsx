@@ -13,31 +13,14 @@ const FinancePage = () => {
   const [monthLabels, setMonthLabels] = useState([]);
 
   const user = useSelector((state)=>state.user.userDetails);
-  const userId = user.user._id
-  const currBalance = user.user.current_balance
-  // console.log('vygs', userId)
-;
-  const monthData = {
-    January: {
-      expenses: [50, 30, 20],
-      income: [40, 30, 30]
-    },
-    February: {
-      expenses: [40, 35, 25],
-      income: [45, 25, 30]
-    },
-    March: {
-      expenses: [20, 40, 40],
-      income: [15.5, 35.5, 49]
-    },
-    April: {
-      expenses: [],
-      income: [],
-    }
-  
-  };
+  const userId = user.user._id;
+  const currBalance = user.user.current_balance;
 
-  const years = ['2022', '2023', '2024']; 
+  const years = ['2022', '2023', '2024'];
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
   const handleMonthChange = (event) => {
     const selectedMonth = event.target.value;
@@ -53,10 +36,9 @@ const FinancePage = () => {
     fetchData();
   }, [selectedMonth, selectedYear]);
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     if (selectedMonth && selectedYear) {
-      const monthNumber = getMonthNumber(selectedMonth);
-      console.log(monthNumber, selectedYear);
+      const monthNumber = months.indexOf(selectedMonth) + 1;
       const res = await axios.post('http://localhost:3000/graphql', {
         query: `
           mutation {
@@ -92,9 +74,8 @@ const FinancePage = () => {
             }
           }
         `
-      })
+      });
       const data = res.data.data.processMonthlyReport;
-      // console.log('b',data);
       toast.success('Data fetched!', {
         position: 'top-right',
         autoClose: 2000,
@@ -114,9 +95,6 @@ const FinancePage = () => {
           }
         });
       }
-      // console.log(expenses);
-      // console.log(income);
-      // const { expenses, income } = monthData[selectedMonth];
       setExpenseData(expenses);
       setIncomeData(income);
       setMonthLabels(['Food', 'Education', 'Housing']);
@@ -141,31 +119,13 @@ const FinancePage = () => {
     }
   };
 
-  const getMonthNumber = (selectedMonth) => {
-    const months = {
-      January: '01',
-      February: '02',
-      March: '03',
-      April: '04',
-      May: '05',
-      June: '06',
-      July: '07',
-      August: '08',
-      September: '09',
-      October: '10',
-      November: '11',
-      December: '12'
-    };
-    return months[selectedMonth];
-  };
-
   return (
     <div className="justify-center p-8 bg-gray-100 mb-4">
       <div className="flex items-center justify-center mb-4">
         <label htmlFor="month" className="mr-2">Select Month:</label>
         <select id="month" value={selectedMonth} onChange={handleMonthChange} className="border border-gray-300 rounded-md p-2 mr-4">
           <option value="">Select Month</option>
-          {Object.keys(monthData).map(month => (
+          {months.map(month => (
             <option key={month} value={month}>{month}</option>
           ))}
         </select>
@@ -177,7 +137,6 @@ const FinancePage = () => {
           ))}
         </select>
       </div>
-      {/* <h2>{currBalance}</h2> */}
       <h1 className="text-3xl font-bold mb-8 text-center">{getHeading()}</h1>
        {selectedMonth && (
         <div className="flex justify-around">

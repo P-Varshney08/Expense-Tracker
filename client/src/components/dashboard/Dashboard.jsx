@@ -7,6 +7,8 @@ import PieChart from '../PieChar';
 import Chart from '../Chart.jsx';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import UserProfile from '../profile/UserProfile.jsx';
+
 
 const FinanceTracker = () => {
   const [income, setIncome] = useState(0);

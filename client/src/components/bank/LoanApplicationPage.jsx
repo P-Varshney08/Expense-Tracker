@@ -12,36 +12,27 @@ const LoanApplicationPage = () => {
   const user = useSelector((state) => state.user.userDetails);
   const userId = user?.user?._id;
 
-  // State for bank data
   const [bankData, setBankData] = useState(null);
-  // State for loan amount
   const [loanAmount, setLoanAmount] = useState('');
 
-  // Fetch bank data when the component mounts
   useEffect(() => {
     if (id) {
-      // Fetch the bank data from the server using the ID
       axios.get(`http://localhost:8080/api/bank/${id}`)
         .then(response => {
-          console.log(response.data);
           setBankData(response.data.bank_data);
         })
         .catch(error => {
           console.error('Error fetching bank data:', error);
-          // Handle error here, e.g., show an error message
         });
     }
   }, [id]);
 
-  // Handle the change in loan amount input
   const handleLoanAmountChange = (e) => {
     setLoanAmount(e.target.value);
   };
 
-  // Handle form submission
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Loan amount:', loanAmount);
     try {
       const response=await axios.post(`http://localhost:8080/api/bank/take_loan/${userId}/${id}`,{
         amount:loanAmount
@@ -67,8 +58,8 @@ const LoanApplicationPage = () => {
     <div className="container mx-auto px-4 py-8">
       {bankData && (
         <div className="flex flex-col items-center mb-8">
-          <h1 className="text-4xl font-bold text-yellow-600 mb-6">Loan Application for {bankData.name}</h1>
-          <div className="bg-gradient-to-r from-yellow-200 to-yellow-400 p-8 rounded-lg shadow-lg w-full max-w-6xl">
+          <h1 className="text-4xl font-bold text-purple-600 mb-6">Loan Application for {bankData.name} </h1>
+          <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-6xl">
             <div className="flex flex-col md:flex-row items-center mb-8">
               <img
                 src={bankData.image}
@@ -91,12 +82,12 @@ const LoanApplicationPage = () => {
       <div className="flex justify-center">
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 w-full md:w-1/2">
               <label htmlFor="loanAmount" className="block text-gray-700 font-semibold mb-2 text-center">Loan Amount</label>
               <input
                 type="number"
                 id="loanAmount"
-                className="shadow border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 transition duration-200"
+                className="shadow border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-purple-500 focus:border-purple-500 transition duration-200"
                 value={loanAmount}
                 onChange={handleLoanAmountChange}
                 placeholder="Enter loan amount"
@@ -106,7 +97,7 @@ const LoanApplicationPage = () => {
             <div className="flex justify-center w-full">
               <button
                 type="submit"
-                className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gradient-to-r hover:from-yellow-500 to-yellow-600 transition duration-300 ease-in-out transform hover:scale-105"
+                className="bg-gradient-to-r from-purple-400 to-purple-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gradient-to-r hover:from-purple-500 to-purple-600 transition duration-300 ease-in-out transform hover:scale-105"
               >
                 Submit Application
               </button>
@@ -119,4 +110,3 @@ const LoanApplicationPage = () => {
 };
 
 export default LoanApplicationPage;
-  
