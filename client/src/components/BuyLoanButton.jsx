@@ -9,7 +9,7 @@ const BuyLoanButton = () => {
   };
 
   return (
-    <button onClick={handleBuyLoan} className="fixed bottom-8 right-8 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+    <button onClick={handleBuyLoan} className="fixed bottom-24 right-8 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
       Buy Loan
     </button>
   );

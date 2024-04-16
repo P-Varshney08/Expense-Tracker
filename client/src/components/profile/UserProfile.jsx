@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Portfolio from '../portfolio/portfolio';
 import Portfoliosec from '../portfolio/portfoliosec';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

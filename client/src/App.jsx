@@ -16,6 +16,7 @@ import BankDashboard from './components/bank/BankDashboard.jsx';
 import LoanApplicationPage from './components/bank/LoanApplicationPage.jsx';
 import BuyLoanButton from './components/BuyLoanButton'; // Import the BuyLoanButton component
 import UserProfile from './components/profile/UserProfile.jsx';
+import Chatbot from './components/chatbot/ChatBot.jsx';
 
 const App = () => {
   const user = useSelector((state)=>{
@@ -24,6 +25,7 @@ const App = () => {
   const isLoggedIn = !!user;
 
   return (
+    <>
     <BrowserRouter>
       <div className="flex overflow-auto bg-[#e6e6e6] min-h-screen">
         {isLoggedIn && <Sidebar />}
@@ -60,7 +62,9 @@ const App = () => {
         </div>
       </div>
       <BuyLoanButton /> 
+      <Chatbot/>
     </BrowserRouter>
+    </>
   )
 }
 
