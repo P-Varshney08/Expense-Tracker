@@ -94,7 +94,7 @@ const Form = ({ addTransaction }) => {
                         <input type="number" step="0.01" {...register('amount')} placeholder='Amount' className='form-input' required />
                     </div>
                     <div className="submit-btn">
-                        <button className='border py-2 text-white bg-indigo-500 w-full'>Make Transaction</button>
+                        <button className='border py-2 text-white bg-purple-500 w-full'>Make Transaction</button>
                     </div>
                 </div>
             </form>

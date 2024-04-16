@@ -33,7 +33,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-5 bg-gray-100">
       <h1 className="text-3xl font-semibold mb-8 text-center">User Profile</h1>
       {userData && ( // Render user data if available
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -43,7 +43,7 @@ const UserProfile = () => {
               <h2 className="text-xl font-semibold mb-4 text-white">Personal Information</h2>
               <p className="text-gray-100"><span className="font-semibold">Name:</span> {userData.user.username}</p>
               <p className="text-gray-100"><span className="font-semibold">Email:</span> {userData.user.email}</p>
-              <p className="text-gray-100"><span className="font-semibold">Current Balance:</span> {userData.user.current_balance}</p>
+              <p className="text-gray-100"><span className="font-semibold">Current Balance: $</span> {userData.user.current_balance}</p>
             </div>
           </div>
 
@@ -60,9 +60,9 @@ const UserProfile = () => {
           <div className="bg-gradient-to-br from-red-400 to-pink-500 rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4 text-white">Your Set Limits</h2>
-              <p className="text-gray-100"><span className="font-semibold">Food Expense Limit:</span> {userData.user.limit_food}</p>
-              <p className="text-gray-100"><span className="font-semibold">Education Expense Limit:</span> {userData.user.limit_Education}</p>
-              <p className="text-gray-100"><span className="font-semibold">Housing Expense Limit:</span> {userData.user.limit_Housing}</p>
+              <p className="text-gray-100"><span className="font-semibold">Food Expense Limit:$</span> {userData.user.limit_food}</p>
+              <p className="text-gray-100"><span className="font-semibold">Education Expense Limit:$</span> {userData.user.limit_Education}</p>
+              <p className="text-gray-100"><span className="font-semibold">Housing Expense Limit:$</span> {userData.user.limit_Housing}</p>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ const UserProfile = () => {
 
       <Portfoliosec />
       {/* Button for adding expense limit */}
-      <div className="text-center mt-8">
+      <div className="text-center">
         <button className="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-md shadow-md" onClick={handleClick}>
           Add Expense Limit
         </button>

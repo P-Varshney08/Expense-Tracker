@@ -2,12 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import Card from '../Card';
 import AddIncomeForm from '../AddIncome.jsx';
 import AddExpenseForm from '../AddExpense.jsx';
-import MyTable from '../MyTable.jsx';
-import PieChart from '../PieChar';
-import Chart from '../Chart.jsx';
+import MyTable from '../transactions/MyTable.jsx';
+import PieChart from '../transactions/PieChart.jsx';
+import Chart from '../transactions/Chart.jsx';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import UserProfile from '../profile/UserProfile.jsx';
 
 
 const FinanceTracker = () => {
@@ -140,8 +139,6 @@ const FinanceTracker = () => {
           </div>
         </div>
       )}
-      <div className="justify-center p-8 bg-gray-100 mb-4">
-      </div>
     </div>
   );
 };

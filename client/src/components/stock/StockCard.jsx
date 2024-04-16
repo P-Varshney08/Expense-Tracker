@@ -1,32 +1,49 @@
 import React from 'react';
 
-// Function to generate a random background color
+// Function to generate a random background gradient color
 const getRandomColor = () => {
-    const colors = [
-        '#F87171', '#FBBF24', '#34D399', '#60A5FA', '#A78BFA', '#F472B6', '#FCD34D',
-        '#F65D57', '#FACC15', '#6EE7B7', '#7DD3FC', '#BFDBFE', '#FBBF24', '#818CF8'
-      ];
+  const colors = [
+    'from-teal-300 to-yellow-500',
+    'from-red-300 to-pink-600',
+    'from-purple-600 to-indigo-400',
+    'from-pink-400 to-blue-500',
+    'from-cyan-300 to-blue-600',
+    'from-fuchsia-600 to-pink-500',
+    'from-green-400 to-blue-500',
+    'from-green-400 to-yellow-500',
+    'from-yellow-400 to-lime-500',
+    'from-pink-400 to-rose-500',
+    'from-pink-400 to-purple-500',
+    'from-orange-400 to-yellow-300',
+
+    // 'from-indigo-400 to-purple-500',
+    // 'from-blue-400 to-cyan-500',
+    // 'from-green-400 to-emerald-500',
+    // 'from-purple-400 to-fuchsia-500',
+    // 'from-indigo-400 to-blue-500',
+    // 'from-blue-400 to-green-500',
+    // 'from-red-400 to-red-500',
+    // 'from-purple-400 to-purple-500',
+    // 'from-emerald-400 to-green-500',
+  ];
+  
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
 // Card component for each stock
 const StockCard = ({ stock }) => {
-    console.log(stock)
-  const { name, price } = stock;
-  const backgroundColor = getRandomColor();
+  const { name, price, symbol } = stock;
+  const gradientColor = getRandomColor();
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4" style={{ backgroundColor }}>
+    <div className={`rounded-lg shadow-md p-4 overflow-hidden bg-gradient-to-br ${gradientColor}`}>
       <h2 className="text-2xl font-bold text-gray-800 mb-4">{name}</h2>
       <div className="mb-2">
         <span className="text-gray-600">Current Value:</span> ${price.toFixed(2)}
       </div>
-      {/* <div className="mb-2">
-        <span className="text-gray-600">Number of Stocks:</span> {quantity}
-      </div> */}
-      {/* <div className="mb-2">
-        <span className="text-gray-600">Value Invested:</span> ${valueInvested.toFixed(2)}
-      </div> */}
+      <div className="mb-2">
+        <span className="text-gray-600">Symbol:</span> ${symbol}
+      </div>
     </div>
   );
 };

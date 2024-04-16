@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PieChart from './PieChar';
+import PieChart from './transactions/PieChart';
 import ExpenseIncomeGraph from './ExpenseIncomeGraph';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
