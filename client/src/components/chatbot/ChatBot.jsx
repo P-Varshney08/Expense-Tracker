@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import './index.css';
+
 function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([
-    { message: "Hey Alice is here !! 👋\nHow can I help you today?", role: "incoming" },
+    { message: "Hey Alice is here!! 👋\nHow can I help you today?", role: "incoming" },
   ]);
   const [showChatbot, setShowChatbot] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
+
+  // Create a ref to access the chatbox element
+  const chatboxRef = useRef(null);
 
   const toggleChatbot = () => {
     setShowChatbot(!showChatbot);
@@ -17,78 +22,34 @@ function Chatbot() {
     }
   };
 
-  const customQuestionsAndAnswers = [
-    { keywords: ["hi", "hello", "hey","hy","How are you","how are u","can u help me","Can u help me","hy my name is","suno bhai mera naam" ,"suno"], answer: "How may I help you?" },
-    { keywords: ["fever medicine", "today's weather"], answer: "The weather is sunny and warm today." },
-    { keywords: ["paracetamol","govind"], answer: "Paracetamol is a medicine used to treat mild to moderate pain. Paracetamol can also be used to treat fever (high temperature). It's dangerous to take more than the recommended dose of paracetamol. Paracetamol overdose can damage your liver and cause death." },
-    { keywords: [" i am  suffering from fever"], answer: "tell me about your problem" },
-    { keywords: ["99-103"], answer: "drink plenty of water" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    { keywords: ["joke","govind"], answer: "Why did the chicken cross the road? To get to the other side!" },
-    // Add more keyword-answer pairs as needed
-  ];
-
-  const handleChat = () => {
-    let message = userMessage.trim();
+  const handleChat = async () => {
+    const message = userMessage.trim();
     if (!message) return;
 
+    // Add the user's message to the chat history
     const updatedChatHistory = [...chatHistory, { message, role: "outgoing" }];
     setChatHistory(updatedChatHistory);
     setIsThinking(true);
 
-    setTimeout(() => {
-      setIsThinking(false);
+    try {
+        // Make an HTTP POST request to the backend /send_msg endpoint using axios
+        const response = await axios.post(`http://localhost:8080/api/chat/send_msg`, { msg: message });
+        console.log(response)
 
-      let answerMessage = "I'm sorry, I don't have an answer to that.";
+  
+        const updatedChatHistoryWithAnswer = [
+            ...updatedChatHistory,
+            { message: response.data.message, role: "incoming" },
+        ];
+        setChatHistory(updatedChatHistoryWithAnswer);
 
-      customQuestionsAndAnswers.forEach(item => {
-        if (item.keywords.some(keyword => message.toLowerCase().includes(keyword))) {
-          answerMessage = item.answer;
-        }
-      });
+    } catch (error) {
+        console.error('Error making HTTP request:', error);
+    }
 
-      const updatedChatHistoryWithAnswer = [...updatedChatHistory, { message: answerMessage, role: "incoming" }];
-      setChatHistory(updatedChatHistoryWithAnswer);
-
-      // Clear the user input field
-      setUserMessage('');
-    }, 2000); // Adjust the delay time as needed (2 seconds in this example)
+    // Reset thinking state and user message input
+    setIsThinking(false);
+    setUserMessage('');
   };
 
   const handleInputChange = (e) => {
@@ -96,12 +57,18 @@ function Chatbot() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleChat();
     }
   };
 
+  // useEffect to scroll to the bottom of the chatbox when a new message is added
+  useEffect(() => {
+    if (chatboxRef.current) {
+      chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   return (
     <div>
@@ -110,7 +77,7 @@ function Chatbot() {
         <span className="material-symbols-outlined">close</span>
       </button>
       <div className={`chatbot ${showChatbot ? '' : 'hidden'}`}>
-        <ul className="chatbox">
+        <ul className="chatbox" ref={chatboxRef}>
           {chatHistory.map((item, index) => (
             <li key={index} className={`chat ${item.role}`}>
               {item.role === 'incoming' && (

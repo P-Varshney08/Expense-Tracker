@@ -46,10 +46,13 @@ const StockPage = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {stockData && stockData.map((stock) => (
-              <StockLineGraph key={stock._id} stock={stock} />
-            ))}
+          <div>
+            <h2 className="text-3xl font-bold mb-4 text-center">Stock Performance</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {stockData && stockData.map((stock) => (
+                <StockLineGraph key={stock._id} stock={stock} />
+              ))}
+            </div>
           </div>
         )}
       </div>
