@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const StockLineGraph = ({ stock }) => {
+  const navigate=useNavigate();
   const user = useSelector((state)=>state.user.userDetails);
   const userId = user.user._id;
   const strData = JSON.stringify(stock);
@@ -30,6 +33,18 @@ const StockLineGraph = ({ stock }) => {
       // Optionally, you can handle the response or perform additional actions
     })
     .catch(error => {
+  
+      toast.warning('Dont have limit to buy stocks', {
+        autoClose: 4000,
+        progressStyle: {
+            backgroundColor: '#FFB700'
+        },
+        theme: 'dark'
+    }); 
+    navigate('/notifications',{state:{
+      message:"dont  have limit"
+    }})
+
       console.error('Error buying stock:', error);
       alert('Error buying stock. Please try again later.');
     });

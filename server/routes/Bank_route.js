@@ -121,7 +121,9 @@ router.post("/take_loan/:userId/:bankId", async (req, res) => {
         }
         const interestAmount = amount * (bank.interest_rate / 100);
         const totalAmountDue = amount + interestAmount;
-        user.current_balance += amount;
+        const amount_user=user.current_balance+amount
+        user.current_balance += amount_user
+        await user.save();
         const loan = new Loan({
             user_id: userId,
             bank_id: bankId,
