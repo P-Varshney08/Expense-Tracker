@@ -39,6 +39,11 @@ Navigate to GraphQL
   npm i
   nodemon
 ```
+
+## Use case diagram
+
+![Screenshot 2024-04-17 084142](https://github.com/P-Varshney08/Expense-Tracker/assets/98008826/6f3e8401-19c0-448a-893b-4e0a33c8a435)
+
 ## Screenshots
 
 
