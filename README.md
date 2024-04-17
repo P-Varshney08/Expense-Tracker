@@ -56,18 +56,18 @@ Navigate to GraphQL
 
 ## ✨Features
 
-Expense Tracking and Budget Management: Easily categorize expenses, set budget limits, and get notified when exceeding thresholds to maintain financial control and meet goals.
+<b>Expense Tracking and Budget Management:</b> Easily categorize expenses, set budget limits, and get notified when exceeding thresholds to maintain financial control and meet goals.
 
-Savings Goal Tracking: Set savings objectives, track progress visually with graphs, and receive milestone notifications for motivation.
+<b>Savings Goal Tracking:</b> Set savings objectives, track progress visually with graphs, and receive milestone notifications for motivation.
 
-Stock Trading: View stock prices, make trades directly within the app, and diversify investment portfolios with real-time data.
+<b>Stock Trading:</b> View stock prices, make trades directly within the app, and diversify investment portfolios with real-time data.
 
-Integrated Banking System: Access banking services, request loans, and enjoy seamless integration for quick approvals and fund transfers.
+<b>Integrated Banking System:</b> Access banking services, request loans, and enjoy seamless integration for quick approvals and fund transfers.
 
-Transaction Analysis: Gain insights with interactive charts, compare spending across categories, and identify areas for improvement.
+<b>Transaction Analysis:</b> Gain insights with interactive charts, compare spending across categories, and identify areas for improvement.
 
-Chatbot Interface: Engage with a chatbot for personalized financial advice, text completion, and summarization tasks using Gemini API.
+<b>Chatbot Interface:</b> Engage with a chatbot for personalized financial advice, text completion, and summarization tasks using Gemini API.
 
-Expense Reminders and Alerts: Stay organized with reminders for bill payments, due dates, stock fluctuations, and budget milestones.
+<b>Expense Reminders and Alerts:</b> Stay organized with reminders for bill payments, due dates, stock fluctuations, and budget milestones.
 
-Customizable Reporting: Generate tailored financial reports, export data for analysis, and make informed decisions based on financial history.
+<b>Customizable Reporting:</b> Generate tailored financial reports, export data for analysis, and make informed decisions based on financial history.
