@@ -14,14 +14,14 @@ const StockLineGraph = ({ stock }) => {
 
   const [quantity, setQuantity] = useState('');
 
-  // Handle buy button click
+
   const handleBuyStock = async() => {
     if (!quantity || isNaN(quantity)) {
       alert('Please enter a valid quantity.');
       return;
     }
     
-    // Make API call to buy stock with quantity
+
     await axios.post(`http://localhost:8080/api/stock/buy-stock/${userId}`, {
       symbol,
       quantity: parseInt(quantity)
@@ -30,7 +30,6 @@ const StockLineGraph = ({ stock }) => {
       alert('Stock bought successfully!');
       console.log(response.data);
       window.location.reload();
-      // Optionally, you can handle the response or perform additional actions
     })
     .catch(error => {
   
@@ -50,7 +49,6 @@ const StockLineGraph = ({ stock }) => {
     });
   };
 
-  // Prepare data for the chart
   const chartData = {
     options: {
       chart: {
@@ -60,7 +58,7 @@ const StockLineGraph = ({ stock }) => {
       xaxis: {
         type: 'datetime',
         labels: {
-          datetimeUTC: false // Adjust as needed based on your data
+          datetimeUTC: false 
         }
       },
       yaxis: {
@@ -70,14 +68,14 @@ const StockLineGraph = ({ stock }) => {
       },
       tooltip: {
         x: {
-          format: 'dd MMM yyyy' // Adjust date format in tooltip as needed
+          format: 'dd MMM yyyy' 
         }
       }
     },
     series: [{
       name: 'Price',
       data: history.map(item => ({
-        x: new Date(item.timestamp).getTime(), // Convert timestamp to milliseconds
+        x: new Date(item.timestamp).getTime(), 
         y: item.price
       }))
     }]

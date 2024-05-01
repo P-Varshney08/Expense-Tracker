@@ -10,10 +10,8 @@ export const resolvers={
     Mutation:{
         processMonthlyReport:async(_,args)=>{
             const {date,userId}=args;
-            
             console.log(date);
-            console.log(userId)
-        
+            console.log(userId);
             try { 
                 const response=await axios.post(`http://localhost:8080/api/user/ExpenseDetails/${userId}`,{
                     date

@@ -2,6 +2,7 @@ const express = require( 'express');
 const dotenv = require( 'dotenv');
 const mongoose = require('mongoose')
 const cors = require('cors');
+const path=require('path');
 
 dotenv.config();
 const userRoutes = require('./routes/user.route.js')
@@ -25,7 +26,12 @@ app.use('/api/stock',stockRoutes);
 app.use('/api/bank',bankRoutes);
 app.use('/api/chat',chat_route);
 
+// Use client app
+// console.log(path.join(__dirname, '../client'));
+app.use(express.static(path.join(__dirname, '../client/dist')))
 
+// Render client for ant path
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, '../client/dist/index.html ')))
 
 MONGO_URL=process.env.MONGO_URL;
 

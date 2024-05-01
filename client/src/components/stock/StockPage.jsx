@@ -12,7 +12,7 @@ const StockPage = () => {
   useEffect(() => {
     axios.get(`http://localhost:8080/api/stock/stocks`)
       .then(response => {
-        setStockData(response.data); // Update stockData state with fetched data
+        setStockData(response.data); 
         setLoading(false);
         toast.success('Stocks fetched!', {
           position: 'top-right',
